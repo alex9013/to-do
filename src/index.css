@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Press Start 2P', 'Orbitron', sans-serif;
 }
 
 * {
@@ -8,302 +8,174 @@
 
 body {
   margin: 0;
-  background: #0b0d10;
-  color: #e7eaee;
-  font-family: "Orbitron", sans-serif;
+  background: linear-gradient(135deg, #2b003e, #0b0d10, #2b003e);
+  color: #f8f8f2;
+  font-family: 'Press Start 2P', 'Orbitron', sans-serif;
+  overflow-x: hidden;
 }
 
-/* === LOGIN GAMER === */
+/* === LOGIN RETRO === */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background: url('https://i.ibb.co/WzHjJRM/retro-grid.png') center/cover no-repeat;
+  position: relative;
+}
+
+.login-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 16, 0.7);
 }
 
 .login-box {
-  background: rgba(15, 20, 30, 0.9);
+  position: relative;
+  z-index: 1;
+  background: rgba(20, 0, 50, 0.85);
   padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 25px #00f7ff, 0 0 50px #8a2be2;
+  border-radius: 12px;
+  border: 2px solid #ff3cff;
+  box-shadow: 0 0 15px #ff3cff, 0 0 30px #ff66ff inset;
   text-align: center;
-  animation: glowBox 2s infinite alternate;
+  animation: neonPulse 1.5s infinite alternate;
 }
 
 .login-box h2 {
-  color: #00f7ff;
-  text-shadow: 0 0 10px #00f7ff, 0 0 20px #8a2be2;
+  color: #ff3cff;
+  font-size: 20px;
+  text-shadow: 0 0 5px #ff3cff, 0 0 15px #ff66ff;
   margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
 .login-box input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border: none;
-  outline: none;
-  border-radius: 8px;
-  background: #11151a;
-  color: #e7eaee;
-  box-shadow: 0 0 10px #00f7ff;
-  transition: 0.3s;
+  border: 2px solid #ff3cff;
+  border-radius: 6px;
+  background: rgba(30, 0, 60, 0.7);
+  color: #f8f8f2;
+  box-shadow: 0 0 10px #ff3cff inset;
+  font-family: 'Press Start 2P', sans-serif;
+  transition: all 0.3s;
 }
 
 .login-box input:focus {
-  box-shadow: 0 0 15px #8a2be2, 0 0 25px #00f7ff;
+  border-color: #ff66ff;
+  box-shadow: 0 0 15px #ff66ff, 0 0 25px #ff3cff inset;
 }
 
 .login-box button {
-  margin-top: 10px;
+  margin-top: 12px;
   padding: 12px;
   width: 100%;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(90deg, #00f7ff, #8a2be2);
+  background: linear-gradient(90deg, #ff3cff, #ff66ff);
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
-  transition: 0.3s;
+  box-shadow: 0 0 15px #ff3cff, 0 0 25px #ff66ff;
+  transition: all 0.3s ease-in-out;
 }
 
 .login-box button:hover {
-  box-shadow: 0 0 20px #00f7ff, 0 0 30px #8a2be2;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px #ff66ff, 0 0 35px #ff3cff;
 }
 
-@keyframes glowBox {
+@keyframes neonPulse {
   from {
-    box-shadow: 0 0 15px #00f7ff, 0 0 30px #8a2be2;
+    box-shadow: 0 0 15px #ff3cff, 0 0 30px #ff66ff inset;
   }
   to {
-    box-shadow: 0 0 25px #8a2be2, 0 0 50px #00f7ff;
+    box-shadow: 0 0 25px #ff66ff, 0 0 40px #ff3cff inset;
   }
 }
 
-/* === DASHBOARD GAMER === */
-.wrap {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-bottom: 2px solid #2a2f36;
-  background: rgba(20, 25, 35, 0.8);
-  box-shadow: 0 0 20px #00f7ff;
-  border-radius: 12px;
-}
-
-.topbar h1 {
-  font-size: 22px;
-  margin: 0;
-  color: #00f7ff;
-  text-shadow: 0 0 10px #00f7ff, 0 0 20px #8a2be2;
-}
-
-.spacer {
-  flex: 1;
-}
-
-.stats {
-  display: flex;
-  gap: 12px;
-  font-size: 14px;
-  opacity: .85;
-}
-
-.btn {
-  background: linear-gradient(90deg, #00f7ff, #8a2be2);
-  color: white;
-  border: 0;
-  padding: 8px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.btn:hover {
-  box-shadow: 0 0 15px #00f7ff, 0 0 25px #8a2be2;
-}
-
-.btn.danger {
-  background: linear-gradient(90deg, #d83a3a, #ff6b6b);
-}
-
-.add input {
-  flex: 1;
-  border: 1px solid #2a2f36;
-  background: #11151a;
-  color: #e7eaee;
-  padding: 10px 12px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #00f7ff;
-}
-
-.chip {
-  background: #141922;
-  border: 1px solid #2a2f36;
-  color: #c7cfdb;
-  padding: 6px 10px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.chip.active {
-  border-color: #00f7ff;
-  color: #fff;
-  box-shadow: 0 0 10px #00f7ff;
-}
-
-.item {
-  display: grid;
-  grid-template-columns: 28px 1fr auto;
-  align-items: center;
-  gap: 10px;
-  background: #0e1217;
-  border: 1px solid #1b2027;
-  padding: 12px;
-  border-radius: 12px;
-  transition: 0.3s;
-}
-
-.item:hover {
-  box-shadow: 0 0 10px #8a2be2;
-}
-
-.item.done .title {
-  text-decoration: line-through;
-  opacity: .6;
-}
-
-/* === REGISTER GAMER === */
+/* === REGISTER RETRO === */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background: #0b0d10;
+  background: linear-gradient(135deg, #2b003e, #0b0d10, #2b003e);
 }
 
 .register-box {
-  background: rgba(15, 20, 30, 0.9);
+  position: relative;
+  z-index: 1;
+  background: rgba(20, 0, 50, 0.85);
   padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 25px #00f7ff, 0 0 50px #8a2be2;
+  border-radius: 12px;
+  border: 2px solid #ff3cff;
+  box-shadow: 0 0 15px #ff3cff, 0 0 30px #ff66ff inset;
   text-align: center;
-  animation: glowBox 2s infinite alternate;
-  width: 100%;
+  animation: neonPulse 1.5s infinite alternate;
   max-width: 400px;
 }
 
 .register-box h2 {
-  color: #00f7ff;
-  text-shadow: 0 0 10px #00f7ff, 0 0 20px #8a2be2;
+  color: #ff3cff;
+  font-size: 20px;
+  text-shadow: 0 0 5px #ff3cff, 0 0 15px #ff66ff;
   margin-bottom: 20px;
-  font-size: 24px;
+  letter-spacing: 1px;
 }
 
 .register-box input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border: none;
-  outline: none;
-  border-radius: 8px;
-  background: #11151a;
-  color: #e7eaee;
-  box-shadow: 0 0 10px #00f7ff;
-  transition: 0.3s;
-  font-family: "Orbitron", sans-serif;
+  border: 2px solid #ff3cff;
+  border-radius: 6px;
+  background: rgba(30, 0, 60, 0.7);
+  color: #f8f8f2;
+  box-shadow: 0 0 10px #ff3cff inset;
+  font-family: 'Press Start 2P', sans-serif;
+  transition: all 0.3s;
 }
 
 .register-box input:focus {
-  box-shadow: 0 0 15px #8a2be2, 0 0 25px #00f7ff;
+  border-color: #ff66ff;
+  box-shadow: 0 0 15px #ff66ff, 0 0 25px #ff3cff inset;
 }
 
 .register-box button {
-  margin-top: 15px;
+  margin-top: 12px;
   padding: 12px;
   width: 100%;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(90deg, #00f7ff, #8a2be2);
+  background: linear-gradient(90deg, #ff3cff, #ff66ff);
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
-  transition: 0.3s;
-  font-family: "Orbitron", sans-serif;
-  font-weight: bold;
+  box-shadow: 0 0 15px #ff3cff, 0 0 25px #ff66ff;
+  transition: all 0.3s ease-in-out;
 }
 
 .register-box button:hover {
-  box-shadow: 0 0 20px #00f7ff, 0 0 30px #8a2be2;
   transform: translateY(-2px);
-}
-
-.register-link {
-  margin-top: 20px;
-  color: #c7cfdb;
-  font-size: 14px;
-}
-
-.register-link a {
-  color: #00f7ff;
-  text-decoration: none;
-  transition: 0.3s;
-  text-shadow: 0 0 5px #00f7ff;
-}
-
-.register-link a:hover {
-  color: #8a2be2;
-  text-shadow: 0 0 5px #8a2be2;
-}
-
-.error-message {
-  color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.1);
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 15px;
-  border: 1px solid rgba(255, 107, 107, 0.3);
-  text-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
-}
-
-.success-message {
-  color: #00f7ff;
-  background: rgba(0, 247, 255, 0.1);
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 15px;
-  border: 1px solid rgba(0, 247, 255, 0.3);
-  text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
-}
-
-@keyframes glowBox {
-  from {
-    box-shadow: 0 0 15px #00f7ff, 0 0 30px #8a2be2;
-  }
-  to {
-    box-shadow: 0 0 25px #8a2be2, 0 0 50px #00f7ff;
-  }
+  box-shadow: 0 0 25px #ff66ff, 0 0 35px #ff3cff;
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-  .register-box {
+  .register-box, .login-box {
     padding: 30px 20px;
   }
   
-  .register-box h2 {
-    font-size: 20px;
+  .register-box h2, .login-box h2 {
+    font-size: 16px;
   }
 }
