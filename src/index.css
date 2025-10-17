@@ -179,3 +179,281 @@ body {
     font-size: 16px;
   }
 }
+/* === BASE RETRO NEÓN === */
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', 'Orbitron', sans-serif;
+  background: linear-gradient(135deg, #2b003e, #0b0d10, #2b003e);
+  color: #f8f8f2;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* === TOPBAR === */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(20, 0, 50, 0.9);
+  border-bottom: 2px solid #ff3cff;
+  box-shadow: 0 0 15px #ff3cff, inset 0 0 20px #ff66ff;
+  padding: 15px 25px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar h1 {
+  color: #ff3cff;
+  font-size: 16px;
+  text-shadow: 0 0 10px #ff66ff;
+  margin: 0;
+}
+
+.stats {
+  display: flex;
+  gap: 15px;
+  font-size: 10px;
+  color: #00fff0;
+  text-shadow: 0 0 5px #00fff0;
+}
+
+/* === ESTADO DE CONEXIÓN === */
+.estado-conexion {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+}
+
+.estado-conexion.online {
+  background: rgba(0, 255, 128, 0.15);
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  text-shadow: 0 0 8px #00ff88;
+}
+
+.estado-conexion.offline {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff4c4c;
+  border: 1px solid #ff4c4c;
+  text-shadow: 0 0 8px #ff4c4c;
+}
+
+/* === BOTONES === */
+.btn {
+  background: linear-gradient(90deg, #ff3cff, #ff66ff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px #ff3cff;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px #ff66ff, 0 0 25px #ff3cff;
+}
+
+.btn.danger {
+  background: linear-gradient(135deg, #ff1f1f, #ff4c4c);
+  box-shadow: 0 0 10px #ff1f1f;
+}
+
+.btn.danger:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff4c4c, 0 0 20px #ff1f1f;
+}
+
+/* === FORMULARIO DE NUEVA TAREA === */
+main {
+  flex: 1;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 25px;
+}
+
+.add input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ff3cff;
+  border-radius: 6px;
+  background: rgba(30, 0, 60, 0.8);
+  color: #fff;
+  font-family: 'Press Start 2P', sans-serif;
+  box-shadow: 0 0 10px #ff3cff inset;
+  transition: all 0.3s;
+}
+
+.add input:focus {
+  border-color: #ff66ff;
+  box-shadow: 0 0 20px #ff66ff inset, 0 0 10px #ff3cff;
+}
+
+/* === BARRA DE HERRAMIENTAS === */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #00fff0;
+  border-radius: 6px;
+  background: rgba(0, 50, 70, 0.8);
+  color: #00fff0;
+  box-shadow: 0 0 8px #00fff0 inset;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  background: rgba(255, 60, 255, 0.1);
+  border: 1px solid #ff3cff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 10px;
+  color: #ff66ff;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 5px #ff3cff;
+}
+
+.chip.active {
+  background: linear-gradient(90deg, #ff3cff, #ff66ff);
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
+}
+
+.chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px #ff66ff, 0 0 25px #ff3cff;
+}
+
+/* === LISTA DE TAREAS === */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(30, 0, 60, 0.6);
+  border: 2px solid #ff3cff;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 10px #ff3cff;
+  transition: 0.3s;
+}
+
+.item.done {
+  opacity: 0.6;
+  text-decoration: line-through;
+  box-shadow: 0 0 8px #00ff88;
+  border-color: #00ff88;
+}
+
+.title {
+  flex: 1;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.edit {
+  flex: 1;
+  padding: 8px;
+  background: rgba(50, 0, 80, 0.8);
+  border: 1px solid #ff66ff;
+  color: #fff;
+  font-family: 'Press Start 2P', sans-serif;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon {
+  background: linear-gradient(90deg, #00fff0, #00baff);
+  border: none;
+  border-radius: 6px;
+  color: #0b0d10;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.icon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00fff0;
+}
+
+.icon.danger {
+  background: linear-gradient(90deg, #ff1f1f, #ff4c4c);
+  color: white;
+}
+
+/* === ESTADOS VACÍO / CARGANDO === */
+.empty, p {
+  text-align: center;
+  font-size: 12px;
+  color: #bbb;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .add, .toolbar, .list {
+    max-width: 90%;
+  }
+
+  .stats {
+    display: none;
+  }
+
+  .topbar h1 {
+    font-size: 12px;
+  }
+}
+
