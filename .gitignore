@@ -1,9 +1,27 @@
+<<<<<<< HEAD
+#dependecias
+node_modules/
+#build / coverage / logs
+
+dist/
+build/
+coverage/
+=======
 # Logs
 logs
+>>>>>>> 6002802203722f0eb8ba8b5debcb8b3f07ce060c
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+
+
+# env y credenciales
+.env
+.env.*
+!.env.example
+=======
 pnpm-debug.log*
 lerna-debug.log*
 
@@ -22,3 +40,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+>>>>>>> 6002802203722f0eb8ba8b5debcb8b3f07ce060c

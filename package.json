@@ -1,4 +1,29 @@
 {
+<<<<<<< HEAD
+  "name": "todo-pwa-api",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server-local.js",
+    "start": "node src/server-local.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.1",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+=======
   "name": "todo-pwa",
   "private": true,
   "version": "0.0.0",
@@ -30,5 +55,6 @@
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
     "vite-plugin-pwa": "^1.0.3"
+>>>>>>> 6002802203722f0eb8ba8b5debcb8b3f07ce060c
   }
 }
