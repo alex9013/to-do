@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "version": 2,
   "functions": {
     "api/index.js": {
@@ -11,4 +12,11 @@
     { "src": "/api/(.*)", "dest": "/api/index.js" },
     { "src": "/", "dest": "/api/index.js" }
   ]
+=======
+    "version": 2,
+    "routes": [
+        {"handle": "filesystem"},
+        {"src": "/(.*)", "dest": "/index.html"}
+    ]
+>>>>>>> 6002802203722f0eb8ba8b5debcb8b3f07ce060c
 }
