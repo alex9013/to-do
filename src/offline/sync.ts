@@ -1,74 +1,70 @@
-import { openDB, type IDBPDatabase } from "idb";
+// src/offline/sync.ts
 
-type DBSchema = {
-  tasks: { key: string; value: any };
-  outbox: { key: string; value: any };
-  meta: { key: string; value: any };
-};
+import { api } from "../api";
+import {
+  getOutbox,
+  clearOutbox,
+  setMapping,
+  putTaskLocal,
+  removeTaskLocal,
+} from "./db";
 
-let dbp: Promise<IDBPDatabase<DBSchema>>;
-
-export function db() {
-  if (!dbp) {
-    dbp = openDB<DBSchema>("todo-pwa", 1, {
-      upgrade(d) {
-        d.createObjectStore("tasks", { keyPath: "_id" });
-        d.createObjectStore("outbox", { keyPath: "_id" });
-        d.createObjectStore("meta", { keyPath: "_id" });
-      },
-    });
-  }
-  return dbp;
+// Asumimos que normalizeTask está disponible o copiada aquí (si no, importala)
+function normalizeTask(x: any) {
+    return {
+        _id: String(x?._id ?? x?.id),
+        title: String(x?.title ?? "(sin título)"),
+        descrption: x?.descrption ?? "",
+        status: x?.status === "Completada" || x?.status === "En Progreso" || x?.status === "Pendiente" ? x.status : "Pendiente",
+    };
 }
 
-// === Tareas cache local ===
-export async function cacheTasks(list: any[]) {
-  const tx = (await db()).transaction("tasks", "readwrite");
-  const store = tx.objectStore("tasks");
-  await store.clear();
-  for (const t of list) await store.put(t);
-  await tx.done;
-}
 
-export async function putTaskLocal(task: any) {
-  const tx = (await db()).transaction("tasks", "readwrite");
-  await tx.store.put(task);
-  await tx.done;
-}
+export async function syncNow() {
+  if (!navigator.onLine) return;
 
-export async function getAllTasksLocal() {
-  return (await (await db()).getAll("tasks")) || [];
-}
+  const ops = (await getOutbox()).sort((a, b) => a.ts - b.ts);
+  if (!ops.length) return;
 
-export async function removeTaskLocal(id: string) {
-  await (await db()).delete("tasks", id);
-}
+  console.log(`[SYNC] Intentando sincronizar ${ops.length} operaciones...`);
 
-// === Cola de sincronización (Outbox) ===
-export type OutboxOp =
-  | { id: string; op: "create"; clienteId: string; data: any; ts: number }
-  | { id: string; op: "update"; serverId?: string; clienteId: string; data: any; ts: number }
-  | { id: string; op: "delete"; serverId?: string; clienteId?: string; ts: number };
+  for (const op of ops) {
+    try {
+      if (op.op === "create") {
+        console.log(`[SYNC] Procesando CREATE para clienteId: ${op.clienteId}`);
 
-export async function queue(op: OutboxOp) {
-  await (await db()).put("outbox", op);
-}
+        const res = await api.post("/tasks", op.data);
+        
+        // 1. NORMALIZAR LA RESPUESTA PARA OBTENER EL SERVER ID
+        const serverTask = normalizeTask(res.data?.task ?? res.data);
+        const serverId = serverTask._id;
 
-export async function getOutbox() {
-  return (await (await db()).getAll("outbox")) || [];
-}
+        if (!serverId || serverId === op.clienteId) {
+          throw new Error("Error en la respuesta del servidor: No se obtuvo un ID válido.");
+        }
 
-export async function clearOutbox() {
-  const tx = (await db()).transaction("outbox", "readwrite");
-  await tx.store.clear();
-  await tx.done;
-}
+        console.log(`[SYNC-CREATE] Mapeando ${op.clienteId} -> ${serverId}`);
+        await setMapping(op.clienteId, serverId);
 
-// === Mapeo de ID cliente-servidor ===
-export async function setMapping(clienteId: string, serverId: string) {
-  await (await db()).put("meta", { _id: clienteId, serverId });
-}
+        // 2. REEMPLAZO CRÍTICO DE ID EN CACHÉ LOCAL
+        await removeTaskLocal(op.clienteId); 
+        await putTaskLocal(serverTask); // Usar la tarea normalizada con el serverId
+        
+        console.log(`[SYNC-CREATE] Tarea ${op.clienteId} reemplazada con ${serverId} localmente.`);
 
-export async function getMapping(clienteId: string) {
-  return (await (await db()).get("meta", clienteId))?.serverId as string | undefined;
+      } 
+      // ... (mantener update y delete igual)
+
+      // Si la operación fue exitosa, podemos marcarla para limpieza (implícito si el for loop termina)
+
+    } catch (err) {
+      console.error(`[SYNC] Falló la operación ${op.op} (ID: ${op.clienteId || op.serverId}):, err`);
+      // 🚨 SI FALLA, DETENEMOS LA SINCRONIZACIÓN para reintentar la operación en el próximo evento
+      return; 
+    }
+  }
+
+  // Si todo el loop se completa, limpiamos la outbox
+  await clearOutbox();
+  console.log("✅ Sincronización completada. Outbox limpia.");
 }

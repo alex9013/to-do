@@ -1,5 +1,6 @@
 import { openDB, type IDBPDatabase } from "idb";
 
+
 type DBSchema = {
   tasks: { key: string; value: any };
   outbox: { key: string; value: any };
@@ -46,12 +47,12 @@ export async function removeTaskLocal(id: string) {
 
 // === Cola de sincronización (Outbox) ===
 export type OutboxOp =
-  | { id: string; op: "create"; clienteId: string; data: any; ts: number }
-  | { id: string; op: "update"; serverId?: string; clienteId: string; data: any; ts: number }
-  | { id: string; op: "delete"; serverId?: string; clienteId?: string; ts: number };
+  | { _id: string; op: "create"; clienteId: string; data: any; ts: number } // 🚨 CAMBIADO DE 'id' a '_id'
+  | { _id: string; op: "update"; serverId?: string; clienteId: string; data: any; ts: number } // 🚨 CAMBIADO DE 'id' a '_id'
+  | { _id: string; op: "delete"; serverId?: string; clienteId?: string; ts: number }; // 🚨 CAMBIADO DE 'id' a '_id'
 
 export async function queue(op: OutboxOp) {
-  await (await db()).put("outbox", op);
+  await (await db()).put("outbox", op);
 }
 
 export async function getOutbox() {
